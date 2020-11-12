@@ -1,5 +1,6 @@
 var apiKey = 'Kh6At4nhdqEhFXjs1OINKDv99FrMOgT6XVHJjJCt'
-var queryURL = 'https://api.nasa.gov/planetary/apod?date=2001-05-18&api_key=' + apiKey;
+var date = ''
+var queryURL = 'https://api.nasa.gov/planetary/apod?date=' + date + '&api_key=' + apiKey;
 $.ajax({
     url: queryURL,
     method: 'GET'
