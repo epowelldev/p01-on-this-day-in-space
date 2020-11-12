@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-var apiKey = 'Kh6At4nhdqEhFXjs1OINKDv99FrMOgT6XVHJjJCt';
-
 function launchLibrary()
 {
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?';
@@ -55,7 +52,7 @@ function getClosestDate(launchDates, targetDate)
 }
 
 launchLibrary();
-=======
+
 var apiKey = 'Kh6At4nhdqEhFXjs1OINKDv99FrMOgT6XVHJjJCt'
 var queryURL = 'https://api.nasa.gov/planetary/apod?date=2001-05-18&api_key=' + apiKey;
 $.ajax({
@@ -75,4 +72,4 @@ $.ajax({
     $('body').append(nasaDiv)
     nasaDiv.append(divTitle, divDate, divImg, description)
 })
->>>>>>> 6e658f2235f7507060540838974969baeae31f05
+
