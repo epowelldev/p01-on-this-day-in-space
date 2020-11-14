@@ -2,8 +2,8 @@ function launchLibrary(year, date) {
     console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
     var targetDate = date.split('-');
-    var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';    
-    var endDate = '&enddate=' + year[0] + '-' + targetDate[0] + '-31';       
+    var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';
+    var endDate = '&enddate=' + year[0] + '-' + targetDate[0] + '-31';
 
     $.ajax(
         {
@@ -55,8 +55,8 @@ function publishLaunch(launch) {
     var rocket = launch.rocket.name;
     var rocketImg = launch.rocket.imageURL;
 
-    
-    
+
+
     var launchDiv = $('<div>');
     var divTitle = $('<h1>').text("Launch activity closest to this date");
     var divName = $('<h2>').text(name);
@@ -69,8 +69,7 @@ function publishLaunch(launch) {
     $('body').append(launchDiv);
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
 
-    if(launch.missions !== undefined || launch.missions.length != 0)
-    {
+    if (launch.missions !== undefined || launch.missions.length != 0) {
         var missionName = launch.missions.name;
         var missionDesc = launch.missions.description;
 
