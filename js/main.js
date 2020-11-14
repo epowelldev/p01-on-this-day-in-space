@@ -1,5 +1,5 @@
 function launchLibrary(year, date) {
-    console.log(date);
+    //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
     var targetDate = date.split('-');
     var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';
@@ -10,10 +10,10 @@ function launchLibrary(year, date) {
             url: launchLibraryURL + startDate + endDate,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            //console.log(response);
 
             var launches = response.launches;
-            console.log(launches);
+            //console.log(launches);
 
             var closestDate = launches[getClosestDate(launches, targetDate[1])];
             console.log(closestDate);
@@ -34,7 +34,7 @@ function getClosestDate(launchDates, targetDate) {
     var date = launchDates[0].net.split(' ');
     var closest = Math.abs(targetDate - parseInt(date[1]));
 
-    console.log(closest);
+    //console.log(closest);
 
     for (var i = 1; i < launchDates.length; i++) {
         var date = launchDates[i].net.split(' ');
@@ -54,9 +54,13 @@ function publishLaunch(launch) {
     var location = launch.location.name;
     var rocket = launch.rocket.name;
     var rocketImg = launch.rocket.imageURL;
+<<<<<<< HEAD
 
 
 
+=======
+    
+>>>>>>> b8cf423e344808324b63ca009ad545d0f0d297ee
     var launchDiv = $('<div>');
     var divTitle = $('<h1>').text("Launch activity closest to this date");
     var divName = $('<h2>').text(name);
@@ -65,11 +69,22 @@ function publishLaunch(launch) {
     var divRocket = $('<h2>').text(rocket);
     var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
     var missionDiv = $('<div>');
-
+    
     $('body').append(launchDiv);
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
 
+<<<<<<< HEAD
     if (launch.missions !== undefined || launch.missions.length != 0) {
+=======
+    if(launch.vidURLs[0])
+    {
+        var videoDiv = $('<iframe>').attr('src', launch.vidURLs[0]);
+        launchDiv.append(videoDiv);
+    }
+
+    if(launch.missions !== undefined || launch.missions.length != 0)
+    {
+>>>>>>> b8cf423e344808324b63ca009ad545d0f0d297ee
         var missionName = launch.missions.name;
         var missionDesc = launch.missions.description;
 
