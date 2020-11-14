@@ -93,7 +93,7 @@ function getNasa() {
             url: queryURL2,
             method: 'GET'
         }).then(function (response2) {
-            // console.log(response2);
+            console.log(response2);
             var nasaDate2 = moment(response2.date).format('dddd, MMMM Do YYYY')
             var imgDesc2 = response2.explanation
             var imgTitle2 = response2.title
