@@ -54,13 +54,10 @@ function publishLaunch(launch) {
     var location = launch.location.name;
     var rocket = launch.rocket.name;
     var rocketImg = launch.rocket.imageURL;
-<<<<<<< HEAD
 
 
 
-=======
-    
->>>>>>> b8cf423e344808324b63ca009ad545d0f0d297ee
+
     var launchDiv = $('<div>');
     var divTitle = $('<h1>').text("Launch activity closest to this date");
     var divName = $('<h2>').text(name);
@@ -69,22 +66,16 @@ function publishLaunch(launch) {
     var divRocket = $('<h2>').text(rocket);
     var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
     var missionDiv = $('<div>');
-    
+
     $('body').append(launchDiv);
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
 
-<<<<<<< HEAD
-    if (launch.missions !== undefined || launch.missions.length != 0) {
-=======
-    if(launch.vidURLs[0])
-    {
+    if (launch.vidURLs[0]) {
         var videoDiv = $('<iframe>').attr('src', launch.vidURLs[0]);
         launchDiv.append(videoDiv);
     }
 
-    if(launch.missions !== undefined || launch.missions.length != 0)
-    {
->>>>>>> b8cf423e344808324b63ca009ad545d0f0d297ee
+    if (launch.missions !== undefined || launch.missions.length != 0) {
         var missionName = launch.missions.name;
         var missionDesc = launch.missions.description;
 
