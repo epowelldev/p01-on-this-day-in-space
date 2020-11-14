@@ -2,8 +2,8 @@ function launchLibrary(year, date) {
     //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
     var targetDate = date.split('-');
-    var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';    
-    var endDate = '&enddate=' + year[0] + '-' + targetDate[0] + '-31';       
+    var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';
+    var endDate = '&enddate=' + year[0] + '-' + targetDate[0] + '-31';
 
     $.ajax(
         {
@@ -77,8 +77,7 @@ function publishLaunch(launch) {
         launchDiv.append(videoDiv);
     }
 
-    if(launch.missions !== undefined || launch.missions.length != 0)
-    {
+    if (launch.missions !== undefined || launch.missions.length != 0) {
         var missionName = launch.missions.name;
         var missionDesc = launch.missions.description;
 
