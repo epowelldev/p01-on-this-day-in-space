@@ -1,8 +1,9 @@
-function launchLibrary() {
-    var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?';
-    var startDate = 'startdate=' + '2000-04-01';    // placeholder test value
-    var endDate = '&enddate=' + '2000-04-31';       // placeholder test value
-    var targetDate = 15;                            // placeholder test value
+function launchLibrary(year, date) {
+    console.log(date);
+    var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
+    var targetDate = date.split('-');
+    var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';    
+    var endDate = '&enddate=' + year[0] + '-' + targetDate[0] + '-31';       
 
     $.ajax(
         {
@@ -14,8 +15,10 @@ function launchLibrary() {
             var launches = response.launches;
             console.log(launches);
 
-            var closestDate = launches[getClosestDate(launches, targetDate)];
+            var closestDate = launches[getClosestDate(launches, targetDate[1])];
             console.log(closestDate);
+
+            publishLaunch(closestDate);
         });
 }
 
@@ -45,7 +48,38 @@ function getClosestDate(launchDates, targetDate) {
     return count;
 }
 
-launchLibrary();
+function publishLaunch(launch) {
+    var name = launch.name;
+    var date = launch.net;
+    var location = launch.location.name;
+    var rocket = launch.rocket.name;
+    var rocketImg = launch.rocket.imageURL;
+
+    
+    
+    var launchDiv = $('<div>');
+    var divTitle = $('<h1>').text("Launch activity closest to this date");
+    var divName = $('<h2>').text(name);
+    var divDate = $('<h3>').text(date);
+    var divLoc = $('<h3>').text(location);
+    var divRocket = $('<h2>').text(rocket);
+    var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
+    var missionDiv = $('<div>');
+
+    $('body').append(launchDiv);
+    launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
+
+    if(launch.missions !== undefined || launch.missions.length != 0)
+    {
+        var missionName = launch.missions.name;
+        var missionDesc = launch.missions.description;
+
+        var divMissionName = $('<h3>').text(missionName);
+        var divMissionDesc = $('<p>').text(missionDesc);
+
+        missionDiv.append(divMissionName, divMissionDesc);
+    }
+}
 
 var year = []
 $('#searchBtn').click(function (event) {
@@ -55,7 +89,7 @@ $('#searchBtn').click(function (event) {
 
     randomYear()
     getNasa()
-
+    launchLibrary(year, date);
 })
 
 
