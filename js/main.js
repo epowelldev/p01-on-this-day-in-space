@@ -48,28 +48,32 @@ function getClosestDate(launchDates, targetDate) {
     return count;
 }
 
+// Function to publish launch details to the page. 
+// Called by launchLibrary and passed a json object closest to the user entered date.
 function publishLaunch(launch) {
     var name = launch.name;
     var date = launch.net;
     var location = launch.location.name;
     var rocket = launch.rocket.name;
     var rocketImg = launch.rocket.imageURL;
-    
-    var launchDiv = $('<div>');
+
+    var launchDiv = $('<div>').attr('id', 'launch');
     var divTitle = $('<h1>').text("Launch activity closest to this date");
     var divName = $('<h2>').text(name);
     var divDate = $('<h3>').text(date);
     var divLoc = $('<h3>').text(location);
     var divRocket = $('<h2>').text(rocket);
     var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
-    var missionDiv = $('<div>');
+    var missionDiv = $('<div>').attr('id', 'mission');
     
     $('body').append(launchDiv);
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
 
+    // video urls and mission details aren't always defined in the response
     if(launch.vidURLs[0])
     {
-        var videoDiv = $('<iframe>').attr('src', launch.vidURLs[0]);
+        var vidURL = launch.vidURLs[0].replace("watch?v=", "embed/");
+        var videoDiv = $('<iframe>').attr('src', vidURL);
         launchDiv.append(videoDiv);
     }
 
