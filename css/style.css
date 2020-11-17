@@ -14,7 +14,6 @@ body {
   color: aliceblue;
 }
 
-div.columns {
-  border: darkblue;
-  border-radius: 25px;
+.input {
+  width: 400px;
 }
