@@ -65,13 +65,12 @@ function publishLaunch(launch) {
     var divRocket = $('<h2>').text(rocket);
     var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
     var missionDiv = $('<div>').attr('id', 'mission');
-    
+
     $('body').append(launchDiv);
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
 
     // video urls and mission details aren't always defined in the response
-    if(launch.vidURLs[0])
-    {
+    if (launch.vidURLs[0]) {
         var vidURL = launch.vidURLs[0].replace("watch?v=", "embed/");
         var videoDiv = $('<iframe>').attr('src', vidURL);
         launchDiv.append(videoDiv);
@@ -188,3 +187,8 @@ function getNasa() {
     })
 
 }
+
+// bulmaCarousel.attach("#carousel-demo", {
+//     slidesToScroll: 1,
+//     slidesToShow: 1,
+// });

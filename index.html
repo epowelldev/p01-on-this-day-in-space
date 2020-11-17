@@ -1,45 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
-</head>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Goldman&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<body>
+  <body>
     <!-- page header -->
     <header class="hero">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">On This Day in Space</h1>
-                <h2 class="subtitle">
-                    View space photos and launch dates based on a given date!
-                </h2>
-            </div>
+      <div class="hero-body has-text-centered">
+        <div class="container">
+          <h1 class="title is-size-1">On This Day in Space</h1>
+          <h2 class="subtitle is-size-3">
+            View space photos and launch dates based on a given date!
+          </h2>
         </div>
+      </div>
     </header>
 
     <!-- search bar -->
     <div class="field">
-        <div class="control">
-            <input id="searchDate" class="input" type="text" placeholder="Enter a month and day" />
-            <button id="searchBtn" class="button">Search</button>
-        </div>
+      <div class="control">
+        <input
+          id="searchDate"
+          class="input"
+          type="text"
+          placeholder="Enter a month and day"
+        />
+        <button id="searchBtn" class="button">Search</button>
+      </div>
     </div>
 
     <div class="columns">
-        <div class="column is-half-desktop">Image Carousel</div>
-        <div class="column is-half-desktop">Launch Info</div>
+      <div class="column is-6">Image Carousel</div>
+      <section class="section">
+        <div class="container">
+          <!-- Start Carousel -->
+          <div id="carousel-demo" class="carousel">
+            <div class="item-1">
+              <!-- Slide Content -->
+              <img src="https://picsum.photos/300/200" alt="" />
+            </div>
+            <div class="item-2">
+              <!-- Slide Content -->
+              <img src="https://picsum.photos/300/201" alt="" />
+            </div>
+            <div class="item-3">
+              <!-- Slide Content -->
+              <img src="https://picsum.photos/300/202" alt="" />
+            </div>
+          </div>
+          <!-- End Carousel -->
+        </div>
+      </section>
+      <div class="column is-6">Launch Info</div>
     </div>
 
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
+    <script>
+      bulmaCarousel.attach("#carousel-demo", {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+      });
+    </script>
     <script src="js/main.js"></script>
-</body>
-
+  </body>
 </html>
