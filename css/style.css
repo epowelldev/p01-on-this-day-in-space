@@ -1,9 +1,10 @@
-body {
+html {
   background-color: black;
-  background-image: url(“https://media.giphy.com/media/1ZjLRSrAyikUzypJfa/giphy.gif”);
-  background-size: cover;
-  /* opacity: 0.5; */
-  height: 100vh;
+  background-image: url("https://media.giphy.com/media/1ZjLRSrAyikUzypJfa/giphy.gif");
+  background-size: 100%;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
   padding: 0;
   margin: 0;
 }
