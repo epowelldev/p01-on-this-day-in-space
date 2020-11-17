@@ -1,4 +1,6 @@
 var date = $('#searchDate').val()
+var dateArray = JSON.parse(localStorage.getItem('dateArray')) || []
+console.log(dateArray)
 function launchLibrary(year, date) {
     //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
@@ -89,17 +91,57 @@ function publishLaunch(launch) {
 }
 
 var year = []
+// click function for search button
 $('#searchBtn').click(function (event) {
     event.preventDefault()
     year = []
     date = $('#searchDate').val()
-
+    localStorage.setItem('date', date)
     randomYear(date)
     getNasa(date)
     launchLibrary(year, date);
+    dateInputs()
+    dateList()
 })
 
+// create list for previously searched days
+dateList()
+function dateList() {
+    var datesDiv = $('#dateList')
+    datesDiv.empty()
+    var dateUl = $('<ul>')
+    var datesH2 = $('<h2>')
+    if (dateArray.length == 0) {
+        datesH2.text('')
+    }
+    else {
+        datesH2.text('Previously Searched Dates')
+    }
 
+    datesDiv.append(datesH2, dateUl)
+    for (var i = 0; i < dateArray.length; i++) {
+        var dates = dateArray[i];
+        var liEl = $('<li>').text(dates).addClass('list-group-item li-hover border rounded').attr('id', dates)
+        dateUl.prepend(liEl)
+    }
+}
+
+// push previously searched dates into an array
+function dateInputs() {
+    // if the date does not already exist in the array push it to array
+    if (!(dateArray.includes(localStorage.getItem('date')))) {
+        dateArray.push(localStorage.getItem('date'))
+    }
+    // if array is greater than 5 remove the first index
+    if (dateArray.length > 5) {
+        dateArray.splice(dateArray[0], 1)
+    }
+    // store array
+    localStorage.setItem('dateArray', JSON.stringify(dateArray))
+
+}
+
+// create random year array
 function randomYear(date) {
 
     while (year.length < 4) {
@@ -125,7 +167,7 @@ function getNasa(date) {
         url: queryURL,
         method: 'GET'
     }).then(function (response) {
-        // console.log(response);
+        // create div for first call
         var nasaDate = moment(response.date).format('dddd, MMMM Do YYYY')
         var imgDesc = response.explanation
         var imgTitle = response.title
@@ -142,7 +184,7 @@ function getNasa(date) {
             url: queryURL2,
             method: 'GET'
         }).then(function (response2) {
-            // console.log(response2);
+            // create div for second call
             var nasaDate2 = moment(response2.date).format('dddd, MMMM Do YYYY')
             var imgDesc2 = response2.explanation
             var imgTitle2 = response2.title
@@ -159,7 +201,7 @@ function getNasa(date) {
                 url: queryURL3,
                 method: 'GET'
             }).then(function (response3) {
-                // console.log(response3);
+                // create div for third call
                 var nasaDate3 = moment(response3.date).format('dddd, MMMM Do YYYY')
                 var imgDesc3 = response3.explanation
                 var imgTitle3 = response3.title
@@ -176,7 +218,7 @@ function getNasa(date) {
                     url: queryURL4,
                     method: 'GET'
                 }).then(function (response4) {
-                    // console.log(response4);
+                    // create div for last call
                     var nasaDate4 = moment(response4.date).format('dddd, MMMM Do YYYY')
                     var imgDesc4 = response4.explanation
                     var imgTitle4 = response4.title
