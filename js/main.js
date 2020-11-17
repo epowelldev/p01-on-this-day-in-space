@@ -65,13 +65,12 @@ function publishLaunch(launch) {
     var divRocket = $('<h2>').text(rocket);
     var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
     var missionDiv = $('<div>').attr('id', 'mission');
-    
+
     $('body').append(launchDiv);
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
 
     // video urls and mission details aren't always defined in the response
-    if(launch.vidURLs[0])
-    {
+    if (launch.vidURLs[0]) {
         var vidURL = launch.vidURLs[0].replace("watch?v=", "embed/");
         var videoDiv = $('<iframe>').attr('src', vidURL);
         launchDiv.append(videoDiv);
@@ -103,7 +102,14 @@ $('#searchBtn').click(function (event) {
 function randomYear() {
 
     while (year.length < 4) {
-        var randomYr = Math.floor(Math.random() * (moment().format('yyyy') - 1995) + 1995)
+        var minYr = 0
+        if ($('#searchDate').val() <= '06-16') {
+            minYr = 1996
+        }
+        else {
+            minYr = 1995
+        }
+        var randomYr = Math.floor(Math.random() * (parseInt(moment().format('yyyy')) + 1 - minYr) + minYr)
         if (!(year.includes(randomYr))) {
             year.push(randomYr)
         }
