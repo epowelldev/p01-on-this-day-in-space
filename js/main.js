@@ -1,3 +1,4 @@
+var date = $('#searchDate').val()
 function launchLibrary(year, date) {
     //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
@@ -93,17 +94,17 @@ $('#searchBtn').click(function (event) {
     year = []
     date = $('#searchDate').val()
 
-    randomYear()
-    getNasa()
+    randomYear(date)
+    getNasa(date)
     launchLibrary(year, date);
 })
 
 
-function randomYear() {
+function randomYear(date) {
 
     while (year.length < 4) {
         var minYr = 0
-        if ($('#searchDate').val() <= '06-16') {
+        if (date <= '06-16') {
             minYr = 1996
         }
         else {
@@ -116,9 +117,8 @@ function randomYear() {
     }
     console.log(year)
 }
-function getNasa() {
+function getNasa(date) {
     var apiKey = 'Kh6At4nhdqEhFXjs1OINKDv99FrMOgT6XVHJjJCt'
-    var date = $('#searchDate').val()
     var queryURL = `https://api.nasa.gov/planetary/apod?date=${year[0]}-${date}&api_key=${apiKey} `;
 
     $.ajax({
