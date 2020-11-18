@@ -1,8 +1,16 @@
 html {
   background-color: black;
-  background-image: url("https://media.giphy.com/media/1ZjLRSrAyikUzypJfa/giphy.gif");
+  /* background-image: url("https://media.giphy.com/media/1ZjLRSrAyikUzypJfa/giphy.gif"); */
+  background-image: url("../assets/minus25bright-space.gif");
   background-size: 100%;
   background-attachment: fixed;
+  
+  /* added some stuff below */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* added some stuff above */
+
   height: 100%;
   width: 100%;
   padding: 0;
