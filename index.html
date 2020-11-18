@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>On This Day in Space</title>
+  <link rel='icon' href='https://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/128/astronaut-icon.png'
+    type='image/x-icon'>
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Goldman&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
@@ -28,7 +30,8 @@
   <div class="field">
     <div class="control has-text-centered">
       <input id="searchDate" list="dateList" class="input is-half" type="text"
-        placeholder="Enter a month and day (format MM/DD)" /><datalist id="dateList">
+        placeholder="Enter a month and day (format MM/DD)" />
+      <datalist id="dateList">
       </datalist>
       <button id="searchBtn" class="button">Search</button>
     </div>
@@ -36,8 +39,8 @@
   </div>
 
   <div class="columns has-text-centered">
-    <div class="column is-6">Image Carousel</div>
-    <div class="column is-6">Launch Info</div>
+    <div id="nasa" class="column is-6">Image Carousel</div>
+    <div id="launch" class="column is-6">Launch Info</div>
   </div>
 
   <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>

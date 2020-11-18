@@ -68,7 +68,7 @@ function publishLaunch(launch) {
     var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
     var missionDiv = $('<div>').attr('id', 'mission');
 
-    $('body').append(launchDiv);
+    $('#launch').append(launchDiv);
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
 
     // video urls and mission details aren't always defined in the response
@@ -93,6 +93,8 @@ var year = []
 // click function for search button
 $('#searchBtn').click(function (event) {
     event.preventDefault()
+    $('#nasa').empty()
+    $('#launch').empty()
     year = []
     date = $('#searchDate').val()
     localStorage.setItem('date', date)
@@ -160,12 +162,12 @@ function getNasa(date) {
         var imgDesc = response.explanation
         var imgTitle = response.title
         var nasaImg = response.url
-        var nasaDiv = $('<div>')
+        var nasaDiv = $('<div>').attr('id', 'nasa1')
         var divDate = $('<h3>').text(nasaDate)
         var divTitle = $('<h2>').text(imgTitle)
         var divImg = $('<img>').attr('src', nasaImg).css({ 'width': '300px', 'height': 'auto' })
         var description = $('<p>').text(imgDesc)
-        $('body').append(nasaDiv)
+        $('#nasa').append(nasaDiv)
         nasaDiv.append(divTitle, divDate, divImg, description)
         var queryURL2 = `https://api.nasa.gov/planetary/apod?date=${year[1]}-${date}&api_key=${apiKey}`;
         $.ajax({
@@ -177,13 +179,13 @@ function getNasa(date) {
             var imgDesc2 = response2.explanation
             var imgTitle2 = response2.title
             var nasaImg2 = response2.url
-            var nasaDiv2 = $('<div>')
+            var nasaDiv2 = $('<div>').attr('id', 'nasa2')
             var divDate2 = $('<h3>').text(nasaDate2)
             var divTitle2 = $('<h2>').text(imgTitle2)
             var divImg2 = $('<img>').attr('src', nasaImg2).css({ 'width': '300px', 'height': 'auto' })
             var description2 = $('<p>').text(imgDesc2)
-            $('body').append(nasaDiv2)
-            nasaDiv.append(divTitle2, divDate2, divImg2, description2)
+            $('#nasa').append(nasaDiv2)
+            nasaDiv2.append(divTitle2, divDate2, divImg2, description2)
             var queryURL3 = `https://api.nasa.gov/planetary/apod?date=${year[2]}-${date}&api_key=${apiKey}`;
             $.ajax({
                 url: queryURL3,
@@ -194,13 +196,13 @@ function getNasa(date) {
                 var imgDesc3 = response3.explanation
                 var imgTitle3 = response3.title
                 var nasaImg3 = response3.url
-                var nasaDiv3 = $('<div>')
+                var nasaDiv3 = $('<div>').attr('id', 'nasa3')
                 var divDate3 = $('<h3>').text(nasaDate3)
                 var divTitle3 = $('<h2>').text(imgTitle3)
                 var divImg3 = $('<img>').attr('src', nasaImg3).css({ 'width': '300px', 'height': 'auto' })
                 var description3 = $('<p>').text(imgDesc3)
-                $('body').append(nasaDiv3)
-                nasaDiv.append(divTitle3, divDate3, divImg3, description3)
+                $('#nasa').append(nasaDiv3)
+                nasaDiv3.append(divTitle3, divDate3, divImg3, description3)
                 var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
                 $.ajax({
                     url: queryURL4,
@@ -211,21 +213,16 @@ function getNasa(date) {
                     var imgDesc4 = response4.explanation
                     var imgTitle4 = response4.title
                     var nasaImg4 = response4.url
-                    var nasaDiv4 = $('<div>')
+                    var nasaDiv4 = $('<div>').attr('id', 'nasa4')
                     var divDate4 = $('<h3>').text(nasaDate4)
                     var divTitle4 = $('<h2>').text(imgTitle4)
                     var divImg4 = $('<img>').attr('src', nasaImg4).css({ 'width': '300px', 'height': 'auto' })
                     var description4 = $('<p>').text(imgDesc4)
-                    $('body').append(nasaDiv4)
-                    nasaDiv.append(divTitle4, divDate4, divImg4, description4)
+                    $('#nasa').append(nasaDiv4)
+                    nasaDiv4.append(divTitle4, divDate4, divImg4, description4)
                 })
             })
         })
     })
 
 }
-
-// bulmaCarousel.attach("#carousel-demo", {
-//     slidesToScroll: 1,
-//     slidesToShow: 1,
-// });
