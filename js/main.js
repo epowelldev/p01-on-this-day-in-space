@@ -224,8 +224,3 @@ function getNasa(date) {
     })
 
 }
-
-// bulmaCarousel.attach("#carousel-demo", {
-//     slidesToScroll: 1,
-//     slidesToShow: 1,
-// });
