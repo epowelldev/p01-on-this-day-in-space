@@ -185,7 +185,7 @@ function getNasa(date) {
             var divImg2 = $('<img>').attr('src', nasaImg2).css({ 'width': '300px', 'height': 'auto' })
             var description2 = $('<p>').text(imgDesc2)
             $('#nasa').append(nasaDiv2)
-            nasaDiv.append(divTitle2, divDate2, divImg2, description2)
+            nasaDiv2.append(divTitle2, divDate2, divImg2, description2)
             var queryURL3 = `https://api.nasa.gov/planetary/apod?date=${year[2]}-${date}&api_key=${apiKey}`;
             $.ajax({
                 url: queryURL3,
@@ -202,7 +202,7 @@ function getNasa(date) {
                 var divImg3 = $('<img>').attr('src', nasaImg3).css({ 'width': '300px', 'height': 'auto' })
                 var description3 = $('<p>').text(imgDesc3)
                 $('#nasa').append(nasaDiv3)
-                nasaDiv.append(divTitle3, divDate3, divImg3, description3)
+                nasaDiv3.append(divTitle3, divDate3, divImg3, description3)
                 var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
                 $.ajax({
                     url: queryURL4,
@@ -219,7 +219,7 @@ function getNasa(date) {
                     var divImg4 = $('<img>').attr('src', nasaImg4).css({ 'width': '300px', 'height': 'auto' })
                     var description4 = $('<p>').text(imgDesc4)
                     $('#nasa').append(nasaDiv4)
-                    nasaDiv.append(divTitle4, divDate4, divImg4, description4)
+                    nasaDiv4.append(divTitle4, divDate4, divImg4, description4)
                 })
             })
         })
