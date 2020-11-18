@@ -1,23 +1,23 @@
+// target elements and create a list to roll through
+var $slider = $("#custom-slider");
+var $slideBox = $slider.find(".slider-list");
+var $slides = $slideBox.find(".slide-card");
+
+// defined outside, called inside activaly on loop from custom css variable
+var sliderActiveWidth;
+
+    //just some logs...
+    // console.log($slider);
+    // console.log($slideBox);
+    // console.log($slides);
+
 function spaceSlider() {
     // config of the slier
     var currentSlide = 1;
     var sliderSpeed = 1000;
     var slidePause = 5000;
 
-    // defined outside, called inside activaly on loop from custom css variable
-    var sliderActiveWidth;
-    
-    // target elements and create a list to roll through
-    var $slider = $("#custom-slider");
-    var $slideBox = $slider.find(".slider-list");
-    var $slides = $slideBox.find(".slide-card");
-
     var sliderInterval;
-
-    //just some logs...
-    // console.log($slider);
-    // console.log($slideBox);
-    // console.log($slides);
 
     // resume starts the slider on load, and also will be used to resume on mouseleave later
     function resumeSlider() {
@@ -59,3 +59,25 @@ function spaceSlider() {
 
 //calling MrBigFunction
 spaceSlider();
+
+
+var $sliderTitle = $slides.find(".title-row .title-picture");
+var $sliderDate = $slides.find(".title-row .title-date");
+var $sliderPic = $slides.find(".picture-row");
+var $sliderDesc = $slides.find(".discription-row");
+
+console.log($sliderTitle);
+console.log($sliderDate);
+console.log($sliderPic);
+console.log($sliderDesc);
+
+
+//arrays set up to update the slider 1-4 and 1 (to start over)
+var nasaDateArr = [nasaDate, nasaDate2, nasaDate3, nasaDate4, nasaDate];
+var imgDescArr = [imgDesc, imgDesc2, imgDesc3, imgDesc4, imgDesc];
+var imgTitleArr = [imgTitle, imgTitle2, imgTitle3, imgTitle4, imgTitle];
+var nasaImgArr = [nasaImg, nasaImg2, nasaImg3, nasaImg4, nasaImg];
+
+
+
+
