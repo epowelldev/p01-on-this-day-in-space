@@ -1,6 +1,5 @@
 var date = $('#searchDate').val()
 var dateArray = JSON.parse(localStorage.getItem('dateArray')) || []
-console.log(dateArray)
 function launchLibrary(year, date) {
     //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
@@ -109,20 +108,10 @@ dateList()
 function dateList() {
     var datesDiv = $('#dateList')
     datesDiv.empty()
-    var dateUl = $('<ul>')
-    var datesH2 = $('<h2>')
-    if (dateArray.length == 0) {
-        datesH2.text('')
-    }
-    else {
-        datesH2.text('Previously Searched Dates')
-    }
-
-    datesDiv.append(datesH2, dateUl)
     for (var i = 0; i < dateArray.length; i++) {
         var dates = dateArray[i];
-        var liEl = $('<li>').text(dates).addClass('list-group-item li-hover border rounded').attr('id', dates)
-        dateUl.prepend(liEl)
+        var optionEl = $('<option>').text(dates).attr('id', dates)
+        datesDiv.prepend(optionEl)
     }
 }
 
@@ -157,7 +146,6 @@ function randomYear(date) {
             year.push(randomYr)
         }
     }
-    console.log(year)
 }
 function getNasa(date) {
     var apiKey = 'Kh6At4nhdqEhFXjs1OINKDv99FrMOgT6XVHJjJCt'
