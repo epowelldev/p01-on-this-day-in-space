@@ -1,6 +1,5 @@
 var date = $('#searchDate').val()
 var dateArray = JSON.parse(localStorage.getItem('dateArray')) || []
-console.log(dateArray)
 function launchLibrary(year, date) {
     //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
@@ -147,7 +146,6 @@ function randomYear(date) {
             year.push(randomYr)
         }
     }
-    console.log(year)
 }
 function getNasa(date) {
     var apiKey = 'Kh6At4nhdqEhFXjs1OINKDv99FrMOgT6XVHJjJCt'
