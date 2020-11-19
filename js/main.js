@@ -1,26 +1,41 @@
 var date = $('#searchDate').val()
 var dateArray = JSON.parse(localStorage.getItem('dateArray')) || []
+
+// Function containing Launch Library API call
 function launchLibrary(year, date) {
     //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
     var targetDate = date.split('-');
-    var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';
-    var endDate = '&enddate=' + year[0] + '-' + targetDate[0] + '-31';
+    var startDate = 'startdate=' + year[0] + '-' + targetDate + '-01';
+    var endDate = '&enddate=' + year[0] + '-' + targetDate + '-31';
 
     $.ajax(
         {
             url: launchLibraryURL + startDate + endDate,
-            method: "GET"
-        }).then(function (response) {
-            //console.log(response);
-
-            var launches = response.launches;
-            //console.log(launches);
-
-            var closestDate = launches[getClosestDate(launches, targetDate[1])];
-            console.log(closestDate);
-
-            publishLaunch(closestDate);
+            method: "GET",
+            tryCount: 0,
+            retries: 3,
+            success: function (response, textStatus, jqXHR) {
+                console.log(response);
+                console.log(textStatus);
+                console.log(jqXHR);
+    
+                var launches = response.launches;
+                //console.log(launches);
+    
+                var closestDate = launches[getClosestDate(launches, targetDate[1])];
+                console.log(closestDate);
+    
+                publishLaunch(closestDate);
+            },
+            error: function(jqXHR, exception) {
+                //alert("Launch library error: " + jqXHR.status + exception);
+                if(jqXHR.status == 404 && tryCount <= retries)
+                {
+                    tryCount++;
+                    setTimeout(() => {$.ajax(this)}, 1000);
+                }
+            }
         });
 }
 
@@ -53,6 +68,7 @@ function getClosestDate(launchDates, targetDate) {
 // Function to publish launch details to the page. 
 // Called by launchLibrary and passed a json object closest to the user entered date.
 function publishLaunch(launch) {
+    var placeHolder = 'https://launchlibrary1.nyc3.digitaloceanspaces.com/RocketImages/placeholder_1920.png';
     var name = launch.name;
     var date = launch.net;
     var location = launch.location.name;
@@ -65,16 +81,23 @@ function publishLaunch(launch) {
     var divDate = $('<h3>').text(date);
     var divLoc = $('<h3>').text(location);
     var divRocket = $('<h2>').text(rocket);
-    var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
+    //var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
     var missionDiv = $('<div>').attr('id', 'mission');
 
     $('#launch').append(launchDiv);
-    launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
+    launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket);
+
+    // Launch Library sometimes returns a placeholder image
+    if(rocketImg !== placeHolder) {
+        var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
+        launchDiv.append(divImg);
+    }
 
     // video urls and mission details aren't always defined in the response
     if (launch.vidURLs[0]) {
         var vidURL = launch.vidURLs[0].replace("watch?v=", "embed/");
         var videoDiv = $('<iframe>').attr('src', vidURL);
+        videoDiv.attr('id', 'video');
         launchDiv.append(videoDiv);
     }
 
@@ -97,10 +120,13 @@ $('#searchBtn').click(function (event) {
     $('#launch').empty()
     year = []
     date = $('#searchDate').val()
+    console.log(date);
+    var targetDate = date.split(/[\s.,-/;:\\]+/)    // splitting with regex
     localStorage.setItem('date', date)
-    randomYear(date)
-    getNasa(date)
-    launchLibrary(year, date);
+    console.log(targetDate[0] + '-' + targetDate[1])
+    randomYear(targetDate[0] + '-' + targetDate[1])
+    getNasa(targetDate[0] + '-' + targetDate[1])
+    launchLibrary(year, targetDate[0]);
     dateInputs()
     dateList()
 })
@@ -155,7 +181,17 @@ function getNasa(date) {
 
     $.ajax({
         url: queryURL,
-        method: 'GET'
+        method: 'GET',
+        tryCount: 0,
+        retries: 3,
+        error: function(jqXHR, exception) {
+            if(jqXHR.status == 400 && tryCount <= retries)
+                {
+                    tryCount++;
+                    setTimeout(() => {$.ajax(this)}, 1000);
+                }
+            console.log(jqXHR);
+        }
     }).then(function (response) {
         // create div for first call
         var nasaDate = moment(response.date).format('dddd, MMMM Do YYYY')
@@ -172,7 +208,12 @@ function getNasa(date) {
         var queryURL2 = `https://api.nasa.gov/planetary/apod?date=${year[1]}-${date}&api_key=${apiKey}`;
         $.ajax({
             url: queryURL2,
-            method: 'GET'
+            method: 'GET',
+            tryCount: 0,
+            retries: 3,
+            error: function(jqXHR, exception) {
+                alert("NASA API error: " + jqXHR.status + exception);
+            }
         }).then(function (response2) {
             // create div for second call
             var nasaDate2 = moment(response2.date).format('dddd, MMMM Do YYYY')
@@ -189,7 +230,16 @@ function getNasa(date) {
             var queryURL3 = `https://api.nasa.gov/planetary/apod?date=${year[2]}-${date}&api_key=${apiKey}`;
             $.ajax({
                 url: queryURL3,
-                method: 'GET'
+                method: 'GET',
+                tryCount: 0,
+                retries: 3,
+                error: function(jqXHR, exception) {
+                    if(jqXHR.status == 400 && tryCount <= retries)
+                    {
+                        tryCount++;
+                        setTimeout(() => {$.ajax(this)}, 1000);
+                    }
+                }
             }).then(function (response3) {
                 // create div for third call
                 var nasaDate3 = moment(response3.date).format('dddd, MMMM Do YYYY')
@@ -206,7 +256,16 @@ function getNasa(date) {
                 var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
                 $.ajax({
                     url: queryURL4,
-                    method: 'GET'
+                    method: 'GET',
+                    tryCount: 0,
+                    retries: 3,
+                    error: function(jqXHR, exception) {
+                        if(jqXHR.status == 400 && tryCount <= retries)
+                        {
+                            tryCount++;
+                            setTimeout(() => {$.ajax(this)}, 1000);
+                        }
+                    }
                 }).then(function (response4) {
                     // create div for last call
                     var nasaDate4 = moment(response4.date).format('dddd, MMMM Do YYYY')
