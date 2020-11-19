@@ -10,17 +10,21 @@ function launchLibrary(year, date) {
     $.ajax(
         {
             url: launchLibraryURL + startDate + endDate,
-            method: "GET"
-        }).then(function (response) {
-            //console.log(response);
-
-            var launches = response.launches;
-            //console.log(launches);
-
-            var closestDate = launches[getClosestDate(launches, targetDate[1])];
-            console.log(closestDate);
-
-            publishLaunch(closestDate);
+            method: "GET",
+            success: function (response) {
+                console.log(response);
+    
+                var launches = response.launches;
+                //console.log(launches);
+    
+                var closestDate = launches[getClosestDate(launches, targetDate[1])];
+                console.log(closestDate);
+    
+                publishLaunch(closestDate);
+            },
+            error: function(jqXHR, exception) {
+                alert("Launch library error: " + jqXHR.status + exception);
+            }
         });
 }
 
@@ -75,6 +79,7 @@ function publishLaunch(launch) {
     if (launch.vidURLs[0]) {
         var vidURL = launch.vidURLs[0].replace("watch?v=", "embed/");
         var videoDiv = $('<iframe>').attr('src', vidURL);
+        videoDiv.attr('id', 'video');
         launchDiv.append(videoDiv);
     }
 
@@ -155,7 +160,10 @@ function getNasa(date) {
 
     $.ajax({
         url: queryURL,
-        method: 'GET'
+        method: 'GET',
+        error: function(jqXHR, exception) {
+            alert("NASA API error: " + jqXHR.status + exception);
+        }
     }).then(function (response) {
         // create div for first call
         var nasaDate = moment(response.date).format('dddd, MMMM Do YYYY')
@@ -172,7 +180,10 @@ function getNasa(date) {
         var queryURL2 = `https://api.nasa.gov/planetary/apod?date=${year[1]}-${date}&api_key=${apiKey}`;
         $.ajax({
             url: queryURL2,
-            method: 'GET'
+            method: 'GET',
+            error: function(jqXHR, exception) {
+                alert("NASA API error: " + jqXHR.status + exception);
+            }
         }).then(function (response2) {
             // create div for second call
             var nasaDate2 = moment(response2.date).format('dddd, MMMM Do YYYY')
@@ -189,7 +200,10 @@ function getNasa(date) {
             var queryURL3 = `https://api.nasa.gov/planetary/apod?date=${year[2]}-${date}&api_key=${apiKey}`;
             $.ajax({
                 url: queryURL3,
-                method: 'GET'
+                method: 'GET',
+                error: function(jqXHR, exception) {
+                    alert("NASA API error: " + jqXHR.status + exception);
+                }
             }).then(function (response3) {
                 // create div for third call
                 var nasaDate3 = moment(response3.date).format('dddd, MMMM Do YYYY')
@@ -206,7 +220,10 @@ function getNasa(date) {
                 var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
                 $.ajax({
                     url: queryURL4,
-                    method: 'GET'
+                    method: 'GET',
+                    error: function(jqXHR, exception) {
+                        alert("NASA API error: " + jqXHR.status + exception);
+                    }
                 }).then(function (response4) {
                     // create div for last call
                     var nasaDate4 = moment(response4.date).format('dddd, MMMM Do YYYY')
