@@ -1,8 +1,92 @@
+/*slider CSS*/
+/* custom slider css */
+:root {
+  --slider-width: 400px;
+
+  /* slides +1 is because on the last rotation, it
+  needs to slide onto the "first" slide, then change 
+  back to the first slide behind the sceens.
+  used with calc() */
+  --slides-plus-one: 5;
+
+  --slider-height: 400px;
+}
+
+#custom-slider {
+  width: var(--slider-width);
+  height: var(--slider-height);
+  margin: auto;
+  overflow: hidden;
+}
+
+.slider-list {
+  display: block;
+  width: calc( var(--slider-width) * var(--slides-plus-one) );
+  height: var(--slider-height);
+  margin: 0;
+  padding: 0;
+}
+
+.slide-card {
+  float: left;
+  width: var(--slider-width);
+  height: var(--slider-height);
+  display: flex;
+  flex-direction: column;
+}
+
+.title-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.picture-row {
+  background-color: aqua;
+}
+
+.discription-row {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* breakpoint on large screens, enlarge slider */
+@media screen and (min-width: 550px) {
+  :root {
+      --slider-width: 750px;
+      --slider-height: 500px;
+  }
+
+  #custom-slider {
+      width: var(--slider-width);
+      height: var(--slider-height);
+  }
+
+  .slider-list {
+      width: calc( var(--slider-width) * var(--slides-plus-one) );
+      height: var(--slider-height);
+  }
+
+  .slide-card {
+      width: var(--slider-width);
+      height: var(--slider-height);
+  }
+}
+
+/*end slider css*/
+
 html {
   background-color: black;
-  background-image: url("https://media.giphy.com/media/1ZjLRSrAyikUzypJfa/giphy.gif");
+  /* background-image: url("https://media.giphy.com/media/1ZjLRSrAyikUzypJfa/giphy.gif"); */
+  background-image: url("../assets/minus25bright-space.gif");
   background-size: 100%;
   background-attachment: fixed;
+
+  /* added some stuff below */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* added some stuff above */
+
   height: 100%;
   width: 100%;
   padding: 0;
