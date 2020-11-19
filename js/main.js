@@ -13,16 +13,16 @@ function launchLibrary(year, date) {
             method: "GET",
             success: function (response) {
                 console.log(response);
-    
+
                 var launches = response.launches;
                 //console.log(launches);
-    
+
                 var closestDate = launches[getClosestDate(launches, targetDate[1])];
                 console.log(closestDate);
-    
+
                 publishLaunch(closestDate);
             },
-            error: function(jqXHR, exception) {
+            error: function (jqXHR, exception) {
                 alert("Launch library error: " + jqXHR.status + exception);
             }
         });
@@ -102,6 +102,9 @@ $('#searchBtn').click(function (event) {
     $('#launch').empty()
     year = []
     date = $('#searchDate').val()
+    if (date == '') {
+        return
+    }
     localStorage.setItem('date', date)
     randomYear(date)
     getNasa(date)
@@ -161,7 +164,7 @@ function getNasa(date) {
     $.ajax({
         url: queryURL,
         method: 'GET',
-        error: function(jqXHR, exception) {
+        error: function (jqXHR, exception) {
             alert("NASA API error: " + jqXHR.status + exception);
         }
     }).then(function (response) {
@@ -181,7 +184,7 @@ function getNasa(date) {
         $.ajax({
             url: queryURL2,
             method: 'GET',
-            error: function(jqXHR, exception) {
+            error: function (jqXHR, exception) {
                 alert("NASA API error: " + jqXHR.status + exception);
             }
         }).then(function (response2) {
@@ -201,7 +204,7 @@ function getNasa(date) {
             $.ajax({
                 url: queryURL3,
                 method: 'GET',
-                error: function(jqXHR, exception) {
+                error: function (jqXHR, exception) {
                     alert("NASA API error: " + jqXHR.status + exception);
                 }
             }).then(function (response3) {
@@ -221,7 +224,7 @@ function getNasa(date) {
                 $.ajax({
                     url: queryURL4,
                     method: 'GET',
-                    error: function(jqXHR, exception) {
+                    error: function (jqXHR, exception) {
                         alert("NASA API error: " + jqXHR.status + exception);
                     }
                 }).then(function (response4) {
