@@ -13,6 +13,8 @@ function launchLibrary(year, date) {
         {
             url: launchLibraryURL + startDate + endDate,
             method: "GET",
+            tryCount: 0,
+            retries: 3,
             success: function (response, textStatus, jqXHR) {
                 console.log(response);
                 console.log(textStatus);
@@ -27,7 +29,12 @@ function launchLibrary(year, date) {
                 publishLaunch(closestDate);
             },
             error: function(jqXHR, exception) {
-                alert("Launch library error: " + jqXHR.status + exception);
+                //alert("Launch library error: " + jqXHR.status + exception);
+                if(jqXHR.status == 404 && tryCount <= retries)
+                {
+                    tryCount++;
+                    setTimeout(() => {$.ajax(this)}, 1000);
+                }
             }
         });
 }
@@ -114,7 +121,7 @@ $('#searchBtn').click(function (event) {
     year = []
     date = $('#searchDate').val()
     console.log(date);
-    var targetDate = date.split(/[\s.,-/;:\\]+/)
+    var targetDate = date.split(/[\s.,-/;:\\]+/)    // splitting with regex
     localStorage.setItem('date', date)
     console.log(targetDate[0] + '-' + targetDate[1])
     randomYear(targetDate[0] + '-' + targetDate[1])
@@ -176,7 +183,11 @@ function getNasa(date) {
         url: queryURL,
         method: 'GET',
         error: function(jqXHR, exception) {
-            alert("NASA API error: " + jqXHR.status + exception);
+            if(jqXHR.status == 404 && tryCount <= retries)
+                {
+                    tryCount++;
+                    setTimeout(() => {$.ajax(this)}, 1000);
+                }
             console.log(jqXHR);
         }
     }).then(function (response) {
@@ -217,7 +228,11 @@ function getNasa(date) {
                 url: queryURL3,
                 method: 'GET',
                 error: function(jqXHR, exception) {
-                    alert("NASA API error: " + jqXHR.status + exception);
+                    if(jqXHR.status == 404 && tryCount <= retries)
+                    {
+                        tryCount++;
+                        setTimeout(() => {$.ajax(this)}, 1000);
+                    }
                 }
             }).then(function (response3) {
                 // create div for third call
@@ -237,7 +252,11 @@ function getNasa(date) {
                     url: queryURL4,
                     method: 'GET',
                     error: function(jqXHR, exception) {
-                        alert("NASA API error: " + jqXHR.status + exception);
+                        if(jqXHR.status == 404 && tryCount <= retries)
+                        {
+                            tryCount++;
+                            setTimeout(() => {$.ajax(this)}, 1000);
+                        }
                     }
                 }).then(function (response4) {
                     // create div for last call
