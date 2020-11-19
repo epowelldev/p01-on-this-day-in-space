@@ -183,7 +183,7 @@ function getNasa(date) {
         url: queryURL,
         method: 'GET',
         error: function(jqXHR, exception) {
-            if(jqXHR.status == 404 && tryCount <= retries)
+            if(jqXHR.status == 400 && tryCount <= retries)
                 {
                     tryCount++;
                     setTimeout(() => {$.ajax(this)}, 1000);
@@ -228,7 +228,7 @@ function getNasa(date) {
                 url: queryURL3,
                 method: 'GET',
                 error: function(jqXHR, exception) {
-                    if(jqXHR.status == 404 && tryCount <= retries)
+                    if(jqXHR.status == 400 && tryCount <= retries)
                     {
                         tryCount++;
                         setTimeout(() => {$.ajax(this)}, 1000);
@@ -252,7 +252,7 @@ function getNasa(date) {
                     url: queryURL4,
                     method: 'GET',
                     error: function(jqXHR, exception) {
-                        if(jqXHR.status == 404 && tryCount <= retries)
+                        if(jqXHR.status == 400 && tryCount <= retries)
                         {
                             tryCount++;
                             setTimeout(() => {$.ajax(this)}, 1000);
