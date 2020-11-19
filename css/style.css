@@ -80,7 +80,7 @@ html {
 .hero-body {
   font-family: "goldman", Georgia, "Times New Roman", Times, serif;
   background-color: black;
-  color: aliceblue;
+  /* color: white !important; */
 }
 .input {
   width: 400px;
