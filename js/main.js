@@ -281,6 +281,17 @@ function getNasa(date) {
                     var description4 = $('<p>').text(imgDesc4)
                     $('#nasa').append(nasaDiv4)
                     nasaDiv4.append(divTitle4, divDate4, divImg4, description4)
+                   
+                    nasaDateArr = [nasaDate, nasaDate2, nasaDate3, nasaDate4, nasaDate];
+                    imgDescArr = [imgDesc, imgDesc2, imgDesc3, imgDesc4, imgDesc];
+                    imgTitleArr = [imgTitle, imgTitle2, imgTitle3, imgTitle4, imgTitle];
+                    nasaImgArr = [nasaImg, nasaImg2, nasaImg3, nasaImg4, nasaImg];
+                    for (let i = 0; i < nasaDateArr.length; i++) {
+                        $sliderTitle[i].textContent = imgTitleArr[i];
+                        $sliderDate[i].textContent = nasaDateArr[i];
+                        $sliderDesc[i].textContent = imgDescArr[i];
+                        $sliderPic[i].innerHTML = `<img src="${nasaImgArr[i]}">`;
+                    }
                 })
             })
         })
@@ -366,7 +377,7 @@ console.log($sliderDesc);
 
 
 //arrays set up to update the slider 1-4 and 1 (to start over)
-var nasaDateArr = [nasaDate, nasaDate2, nasaDate3, nasaDate4, nasaDate];
-var imgDescArr = [imgDesc, imgDesc2, imgDesc3, imgDesc4, imgDesc];
-var imgTitleArr = [imgTitle, imgTitle2, imgTitle3, imgTitle4, imgTitle];
-var nasaImgArr = [nasaImg, nasaImg2, nasaImg3, nasaImg4, nasaImg];
+var nasaDateArr; 
+var imgDescArr; 
+var imgTitleArr; 
+var nasaImgArr; 
