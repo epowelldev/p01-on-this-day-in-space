@@ -253,7 +253,7 @@ function getNasa(date) {
                 // var description3 = $('<p>').text(imgDesc3)
                 // $('#nasa').append(nasaDiv3)
                 // nasaDiv3.append(divTitle3, divDate3, divImg3, description3)
-                // var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
+                var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
                 $.ajax({
                     url: queryURL4,
                     method: 'GET',
