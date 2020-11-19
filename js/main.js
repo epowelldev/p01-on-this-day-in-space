@@ -1,18 +1,22 @@
 var date = $('#searchDate').val()
 var dateArray = JSON.parse(localStorage.getItem('dateArray')) || []
+
+// Function containing Launch Library API call
 function launchLibrary(year, date) {
     //console.log(date);
     var launchLibraryURL = 'https://launchlibrary.net/1.3/launch?mode=verbose&';
     var targetDate = date.split('-');
-    var startDate = 'startdate=' + year[0] + '-' + targetDate[0] + '-01';
-    var endDate = '&enddate=' + year[0] + '-' + targetDate[0] + '-31';
+    var startDate = 'startdate=' + year[0] + '-' + targetDate + '-01';
+    var endDate = '&enddate=' + year[0] + '-' + targetDate + '-31';
 
     $.ajax(
         {
             url: launchLibraryURL + startDate + endDate,
             method: "GET",
-            success: function (response) {
+            success: function (response, textStatus, jqXHR) {
                 console.log(response);
+                console.log(textStatus);
+                console.log(jqXHR);
     
                 var launches = response.launches;
                 //console.log(launches);
@@ -57,6 +61,7 @@ function getClosestDate(launchDates, targetDate) {
 // Function to publish launch details to the page. 
 // Called by launchLibrary and passed a json object closest to the user entered date.
 function publishLaunch(launch) {
+    var placeHolder = 'https://launchlibrary1.nyc3.digitaloceanspaces.com/RocketImages/placeholder_1920.png';
     var name = launch.name;
     var date = launch.net;
     var location = launch.location.name;
@@ -69,11 +74,17 @@ function publishLaunch(launch) {
     var divDate = $('<h3>').text(date);
     var divLoc = $('<h3>').text(location);
     var divRocket = $('<h2>').text(rocket);
-    var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
+    //var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
     var missionDiv = $('<div>').attr('id', 'mission');
 
     $('#launch').append(launchDiv);
-    launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket, divImg);
+    launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket);
+
+    // Launch Library sometimes returns a placeholder image
+    if(rocketImg !== placeHolder) {
+        var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
+        launchDiv.append(divImg);
+    }
 
     // video urls and mission details aren't always defined in the response
     if (launch.vidURLs[0]) {
@@ -102,10 +113,13 @@ $('#searchBtn').click(function (event) {
     $('#launch').empty()
     year = []
     date = $('#searchDate').val()
+    console.log(date);
+    var targetDate = date.split(/[\s.,-/;:\\]+/)
     localStorage.setItem('date', date)
-    randomYear(date)
-    getNasa(date)
-    launchLibrary(year, date);
+    console.log(targetDate[0] + '-' + targetDate[1])
+    randomYear(targetDate[0] + '-' + targetDate[1])
+    getNasa(targetDate[0] + '-' + targetDate[1])
+    launchLibrary(year, targetDate[0]);
     dateInputs()
     dateList()
 })
@@ -163,6 +177,7 @@ function getNasa(date) {
         method: 'GET',
         error: function(jqXHR, exception) {
             alert("NASA API error: " + jqXHR.status + exception);
+            console.log(jqXHR);
         }
     }).then(function (response) {
         // create div for first call
