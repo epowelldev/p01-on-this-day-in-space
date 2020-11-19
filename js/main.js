@@ -13,15 +13,13 @@ function launchLibrary(year, date) {
         {
             url: launchLibraryURL + startDate + endDate,
             method: "GET",
+            tryCount: 0,
+            retries: 3,
             success: function (response, textStatus, jqXHR) {
                 console.log(response);
-<<<<<<< HEAD
-
-=======
                 console.log(textStatus);
                 console.log(jqXHR);
-    
->>>>>>> bcdf516c3b53d272d0391f1701451813524c8ba0
+
                 var launches = response.launches;
                 //console.log(launches);
 
@@ -31,7 +29,11 @@ function launchLibrary(year, date) {
                 publishLaunch(closestDate);
             },
             error: function (jqXHR, exception) {
-                alert("Launch library error: " + jqXHR.status + exception);
+                //alert("Launch library error: " + jqXHR.status + exception);
+                if (jqXHR.status == 404 && tryCount <= retries) {
+                    tryCount++;
+                    setTimeout(() => { $.ajax(this) }, 1000);
+                }
             }
         });
 }
@@ -85,7 +87,7 @@ function publishLaunch(launch) {
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket);
 
     // Launch Library sometimes returns a placeholder image
-    if(rocketImg !== placeHolder) {
+    if (rocketImg !== placeHolder) {
         var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
         launchDiv.append(divImg);
     }
@@ -117,14 +119,12 @@ $('#searchBtn').click(function (event) {
     $('#launch').empty()
     year = []
     date = $('#searchDate').val()
-<<<<<<< HEAD
     if (date == '') {
         return
     }
-=======
-    console.log(date);
-    var targetDate = date.split(/[\s.,-/;:\\]+/)
->>>>>>> bcdf516c3b53d272d0391f1701451813524c8ba0
+
+    var targetDate = date.split(/[\s.,-/;:\\]+/)    // splitting with regex
+
     localStorage.setItem('date', date)
     console.log(targetDate[0] + '-' + targetDate[1])
     randomYear(targetDate[0] + '-' + targetDate[1])
@@ -185,8 +185,13 @@ function getNasa(date) {
     $.ajax({
         url: queryURL,
         method: 'GET',
+        tryCount: 0,
+        retries: 3,
         error: function (jqXHR, exception) {
-            alert("NASA API error: " + jqXHR.status + exception);
+            if (jqXHR.status == 400 && tryCount <= retries) {
+                tryCount++;
+                setTimeout(() => { $.ajax(this) }, 1000);
+            }
             console.log(jqXHR);
         }
     }).then(function (response) {
@@ -207,7 +212,11 @@ function getNasa(date) {
             url: queryURL2,
             method: 'GET',
             error: function (jqXHR, exception) {
-                alert("NASA API error: " + jqXHR.status + exception);
+                if (jqXHR.status == 400 && tryCount <= retries) {
+                    tryCount++;
+                    setTimeout(() => { $.ajax(this) }, 1000);
+                }
+
             }
         }).then(function (response2) {
             // create div for second call
@@ -226,8 +235,13 @@ function getNasa(date) {
             $.ajax({
                 url: queryURL3,
                 method: 'GET',
+                tryCount: 0,
+                retries: 3,
                 error: function (jqXHR, exception) {
-                    alert("NASA API error: " + jqXHR.status + exception);
+                    if (jqXHR.status == 400 && tryCount <= retries) {
+                        tryCount++;
+                        setTimeout(() => { $.ajax(this) }, 1000);
+                    }
                 }
             }).then(function (response3) {
                 // create div for third call
@@ -246,8 +260,13 @@ function getNasa(date) {
                 $.ajax({
                     url: queryURL4,
                     method: 'GET',
+                    tryCount: 0,
+                    retries: 3,
                     error: function (jqXHR, exception) {
-                        alert("NASA API error: " + jqXHR.status + exception);
+                        if (jqXHR.status == 400 && tryCount <= retries) {
+                            tryCount++;
+                            setTimeout(() => { $.ajax(this) }, 1000);
+                        }
                     }
                 }).then(function (response4) {
                     // create div for last call
@@ -280,10 +299,10 @@ var $slides = $slideBox.find(".slide-card");
 // defined outside, called inside activaly on loop from custom css variable
 var sliderActiveWidth;
 
-    //just some logs...
-    // console.log($slider);
-    // console.log($slideBox);
-    // console.log($slides);
+//just some logs...
+// console.log($slider);
+// console.log($slideBox);
+// console.log($slides);
 
 function spaceSlider() {
     // config of the slier
@@ -296,17 +315,17 @@ function spaceSlider() {
     // resume starts the slider on load, and also will be used to resume on mouseleave later
     function resumeSlider() {
 
-        sliderInterval = setInterval(function() {
+        sliderInterval = setInterval(function () {
 
             // this line takes the custom css variable `--slider-width` which changes on a media breakpoint
-                // stores it as a string, removes the "px" from the string, and parseInt the string to use
-                // as a variable in my slider pushing the margin to match the width
-            sliderActiveWidth = parseInt((getComputedStyle(document.documentElement,null).getPropertyValue('--slider-width')).substr(0, 4));
+            // stores it as a string, removes the "px" from the string, and parseInt the string to use
+            // as a variable in my slider pushing the margin to match the width
+            sliderActiveWidth = parseInt((getComputedStyle(document.documentElement, null).getPropertyValue('--slider-width')).substr(0, 4));
             // logging the active width
             console.log(sliderActiveWidth);
 
             // every time `sliderSpeed` ticks, pushing the 'list' of slides to the left one.
-            $slideBox.animate({"margin-left": "-=" + sliderActiveWidth}, sliderSpeed, function() {
+            $slideBox.animate({ "margin-left": "-=" + sliderActiveWidth }, sliderSpeed, function () {
                 currentSlide++;
                 // if the current slide is the last item in the list, change the current slide to the first slide
                 if (currentSlide === $slides.length) {
@@ -315,14 +334,14 @@ function spaceSlider() {
                 }
             });
         }, slidePause);
-        
+
     };
 
     // used to pasues the slider on mouseover
     function pauseSlider() {
         clearInterval(sliderInterval);
     }
-    
+
     //start the slider
     $(resumeSlider);
 
