@@ -182,6 +182,8 @@ function getNasa(date) {
     $.ajax({
         url: queryURL,
         method: 'GET',
+        tryCount: 0,
+        retries: 3,
         error: function(jqXHR, exception) {
             if(jqXHR.status == 400 && tryCount <= retries)
                 {
@@ -207,6 +209,8 @@ function getNasa(date) {
         $.ajax({
             url: queryURL2,
             method: 'GET',
+            tryCount: 0,
+            retries: 3,
             error: function(jqXHR, exception) {
                 alert("NASA API error: " + jqXHR.status + exception);
             }
@@ -227,6 +231,8 @@ function getNasa(date) {
             $.ajax({
                 url: queryURL3,
                 method: 'GET',
+                tryCount: 0,
+                retries: 3,
                 error: function(jqXHR, exception) {
                     if(jqXHR.status == 400 && tryCount <= retries)
                     {
@@ -251,6 +257,8 @@ function getNasa(date) {
                 $.ajax({
                     url: queryURL4,
                     method: 'GET',
+                    tryCount: 0,
+                    retries: 3,
                     error: function(jqXHR, exception) {
                         if(jqXHR.status == 400 && tryCount <= retries)
                         {
