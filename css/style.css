@@ -7,7 +7,6 @@
   back to the first slide behind the sceens.
   used with calc() */
   --slides-plus-one: 5;
-  --slider-height: 400px;
 }
 #custom-slider {
   width: var(--slider-width);
@@ -32,18 +31,17 @@
   justify-content: space-between;
 }
 .discription-row {
-  font-family: 'Courier New', Courier, monospace;
+  /* TBD */
 }
 
 .hidden-content {
   display: none !important; 
 }
 
-/* breakpoint on large screens, enlarge slider */
-@media screen and (min-width: 550px) {
-  :root {
+/* breakpoint on medium screens (width 1500px) for slider */
+@media screen and (min-width: 1500px) {
+    :root {
       --slider-width: 750px;
-      --slider-height: 500px;
   }
   #custom-slider {
       width: var(--slider-width);
@@ -54,6 +52,11 @@
   .slide-card {
       width: var(--slider-width);
   }
+}
+
+/* breakpoint on large screens, enlarge slider */
+@media screen and (min-width: 550px) {
+
   .title-row {
     flex-direction: row;
   }
@@ -78,4 +81,8 @@ html {
 }
 .input {
   width: 400px;
+}
+
+#main-content-area {
+  background: rgb(0, 0, 0, .75) !important;
 }
