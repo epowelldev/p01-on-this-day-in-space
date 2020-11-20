@@ -36,7 +36,7 @@
 }
 
 .hidden-content {
-  display: none;
+  display: none !important; 
 }
 
 /* breakpoint on large screens, enlarge slider */
