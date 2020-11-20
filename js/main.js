@@ -21,21 +21,20 @@ function launchLibrary(year, date) {
                 console.log(response);
                 console.log(textStatus);
                 console.log(jqXHR);
-    
+
                 var launches = response.launches;
                 //console.log(launches);
-    
+
                 var closestDate = launches[getClosestDate(launches, targetDate[1])];
                 console.log(closestDate);
-    
+
                 publishLaunch(closestDate);
             },
-            error: function(jqXHR, exception) {
+            error: function (jqXHR, exception) {
                 //alert("Launch library error: " + jqXHR.status + exception);
-                if(jqXHR.status == 404 && tryCount <= retries)
-                {
+                if (jqXHR.status == 404 && tryCount <= retries) {
                     tryCount++;
-                    setTimeout(() => {$.ajax(this)}, 1000);
+                    setTimeout(() => { $.ajax(this) }, 1000);
                 }
             }
         });
@@ -90,7 +89,7 @@ function publishLaunch(launch) {
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket);
 
     // Launch Library sometimes returns a placeholder image
-    if(rocketImg !== placeHolder) {
+    if (rocketImg !== placeHolder) {
         var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
         launchDiv.append(divImg);
     }
@@ -122,8 +121,12 @@ $('#searchBtn').click(function (event) {
     $('#launch').empty()
     year = []
     date = $('#searchDate').val()
-    console.log(date);
+    if (date == '') {
+        return
+    }
+
     var targetDate = date.split(/[\s.,-/;:\\]+/)    // splitting with regex
+
     localStorage.setItem('date', date)
     console.log(targetDate[0] + '-' + targetDate[1])
     randomYear(targetDate[0] + '-' + targetDate[1])
@@ -187,12 +190,11 @@ function getNasa(date) {
         method: 'GET',
         tryCount: 0,
         retries: 3,
-        error: function(jqXHR, exception) {
-            if(jqXHR.status == 400 && tryCount <= retries)
-                {
-                    tryCount++;
-                    setTimeout(() => {$.ajax(this)}, 1000);
-                }
+        error: function (jqXHR, exception) {
+            if (jqXHR.status == 400 && tryCount <= retries) {
+                tryCount++;
+                setTimeout(() => { $.ajax(this) }, 1000);
+            }
             console.log(jqXHR);
         }
     }).then(function (response) {
@@ -201,15 +203,18 @@ function getNasa(date) {
         var imgDesc = response.explanation
         var imgTitle = response.title
         var nasaImg = response.url
-        
+
         var queryURL2 = `https://api.nasa.gov/planetary/apod?date=${year[1]}-${date}&api_key=${apiKey}`;
         $.ajax({
             url: queryURL2,
             method: 'GET',
             tryCount: 0,
             retries: 3,
-            error: function(jqXHR, exception) {
-                alert("NASA API error: " + jqXHR.status + exception);
+            error: function (jqXHR, exception) {
+                if (jqXHR.status == 400 && tryCount <= retries) {
+                    tryCount++;
+                    setTimeout(() => { $.ajax(this) }, 1000);
+                }
             }
         }).then(function (response2) {
             // create div for second call
@@ -217,18 +222,17 @@ function getNasa(date) {
             var imgDesc2 = response2.explanation
             var imgTitle2 = response2.title
             var nasaImg2 = response2.url
-          
+
             var queryURL3 = `https://api.nasa.gov/planetary/apod?date=${year[2]}-${date}&api_key=${apiKey}`;
             $.ajax({
                 url: queryURL3,
                 method: 'GET',
                 tryCount: 0,
                 retries: 3,
-                error: function(jqXHR, exception) {
-                    if(jqXHR.status == 400 && tryCount <= retries)
-                    {
+                error: function (jqXHR, exception) {
+                    if (jqXHR.status == 400 && tryCount <= retries) {
                         tryCount++;
-                        setTimeout(() => {$.ajax(this)}, 1000);
+                        setTimeout(() => { $.ajax(this) }, 1000);
                     }
                 }
             }).then(function (response3) {
@@ -237,18 +241,17 @@ function getNasa(date) {
                 var imgDesc3 = response3.explanation
                 var imgTitle3 = response3.title
                 var nasaImg3 = response3.url
-               
+
                 var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
                 $.ajax({
                     url: queryURL4,
                     method: 'GET',
                     tryCount: 0,
                     retries: 3,
-                    error: function(jqXHR, exception) {
-                        if(jqXHR.status == 400 && tryCount <= retries)
-                        {
+                    error: function (jqXHR, exception) {
+                        if (jqXHR.status == 400 && tryCount <= retries) {
                             tryCount++;
-                            setTimeout(() => {$.ajax(this)}, 1000);
+                            setTimeout(() => { $.ajax(this) }, 1000);
                         }
                     }
                 }).then(function (response4) {
@@ -257,7 +260,7 @@ function getNasa(date) {
                     var imgDesc4 = response4.explanation
                     var imgTitle4 = response4.title
                     var nasaImg4 = response4.url
-            
+
                     nasaDateArr = [nasaDate, nasaDate2, nasaDate3, nasaDate4, nasaDate];
                     imgDescArr = [imgDesc, imgDesc2, imgDesc3, imgDesc4, imgDesc];
                     imgTitleArr = [imgTitle, imgTitle2, imgTitle3, imgTitle4, imgTitle];
@@ -266,7 +269,12 @@ function getNasa(date) {
                         $sliderTitle[i].textContent = imgTitleArr[i];
                         $sliderDate[i].textContent = nasaDateArr[i];
                         $sliderDesc[i].textContent = imgDescArr[i];
-                        $sliderPic[i].innerHTML = `<img src="${nasaImgArr[i]}">`;
+                        if (nasaImgArr[i].includes("youtube")) {
+                            $sliderPic[i].innerHTML = `<iframe src="${nasaImgArr[i]}">`;
+                        }
+                        else {
+                            $sliderPic[i].innerHTML = `<img src="${nasaImgArr[i]}">`;
+                        }
                     }
                 })
             })
@@ -286,10 +294,10 @@ var $slides = $slideBox.find(".slide-card");
 // defined outside, called inside activaly on loop from custom css variable
 var sliderActiveWidth;
 
-    //just some logs...
-    // console.log($slider);
-    // console.log($slideBox);
-    // console.log($slides);
+//just some logs...
+// console.log($slider);
+// console.log($slideBox);
+// console.log($slides);
 
 function spaceSlider() {
     // config of the slier
@@ -302,17 +310,17 @@ function spaceSlider() {
     // resume starts the slider on load, and also will be used to resume on mouseleave later
     function resumeSlider() {
 
-        sliderInterval = setInterval(function() {
+        sliderInterval = setInterval(function () {
 
             // this line takes the custom css variable `--slider-width` which changes on a media breakpoint
-                // stores it as a string, removes the "px" from the string, and parseInt the string to use
-                // as a variable in my slider pushing the margin to match the width
-            sliderActiveWidth = parseInt((getComputedStyle(document.documentElement,null).getPropertyValue('--slider-width')).substr(0, 4));
+            // stores it as a string, removes the "px" from the string, and parseInt the string to use
+            // as a variable in my slider pushing the margin to match the width
+            sliderActiveWidth = parseInt((getComputedStyle(document.documentElement, null).getPropertyValue('--slider-width')).substr(0, 4));
             // logging the active width
             console.log(sliderActiveWidth);
 
             // every time `sliderSpeed` ticks, pushing the 'list' of slides to the left one.
-            $slideBox.animate({"margin-left": "-=" + sliderActiveWidth}, sliderSpeed, function() {
+            $slideBox.animate({ "margin-left": "-=" + sliderActiveWidth }, sliderSpeed, function () {
                 currentSlide++;
                 // if the current slide is the last item in the list, change the current slide to the first slide
                 if (currentSlide === $slides.length) {
@@ -321,14 +329,14 @@ function spaceSlider() {
                 }
             });
         }, slidePause);
-        
+
     };
 
     // used to pasues the slider on mouseover
     function pauseSlider() {
         clearInterval(sliderInterval);
     }
-    
+
     //start the slider
     $(resumeSlider);
 
@@ -353,7 +361,7 @@ console.log($sliderDesc);
 
 
 //arrays set up to update the slider 1-4 and 1 (to start over)
-var nasaDateArr; 
-var imgDescArr; 
-var imgTitleArr; 
+var nasaDateArr;
+var imgDescArr;
+var imgTitleArr;
 var nasaImgArr; 
