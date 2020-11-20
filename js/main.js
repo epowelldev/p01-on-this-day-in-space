@@ -89,13 +89,8 @@ function publishLaunch(launch) {
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket);
 
     // Launch Library sometimes returns a placeholder image
-<<<<<<< HEAD
-    if (rocketImg !== placeHolder) {
-        var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
-=======
     if(rocketImg !== placeHolder) {
         var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '400px', 'height': 'auto' });
->>>>>>> b1799126cbf7ece9b93b5a54c2831d6cc7c7338e
         launchDiv.append(divImg);
     }
 
