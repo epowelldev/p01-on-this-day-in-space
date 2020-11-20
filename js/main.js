@@ -115,7 +115,7 @@ var year = []
 // click function for search button
 $('#searchBtn').click(function (event) {
     event.preventDefault()
-    $('#nasa').empty()
+    // $('#nasa').empty()
     $('#launch').empty()
     year = []
     date = $('#searchDate').val()
@@ -200,23 +200,25 @@ function getNasa(date) {
         var imgDesc = response.explanation
         var imgTitle = response.title
         var nasaImg = response.url
-        var nasaDiv = $('<div>').attr('id', 'nasa1')
-        var divDate = $('<h3>').text(nasaDate)
-        var divTitle = $('<h2>').text(imgTitle)
-        var divImg = $('<img>').attr('src', nasaImg).css({ 'width': '300px', 'height': 'auto' })
-        var description = $('<p>').text(imgDesc)
-        $('#nasa').append(nasaDiv)
-        nasaDiv.append(divTitle, divDate, divImg, description)
+        // var nasaDiv = $('<div>').attr('id', 'nasa1')
+        // var divDate = $('<h3>').text(nasaDate)
+        // var divTitle = $('<h2>').text(imgTitle)
+        // var divImg = $('<img>').attr('src', nasaImg).css({ 'width': '300px', 'height': 'auto' })
+        // var description = $('<p>').text(imgDesc)
+        // $('#nasa').append(nasaDiv)
+        // nasaDiv.append(divTitle, divDate, divImg, description)
         var queryURL2 = `https://api.nasa.gov/planetary/apod?date=${year[1]}-${date}&api_key=${apiKey}`;
         $.ajax({
             url: queryURL2,
             method: 'GET',
-            error: function (jqXHR, exception) {
-                if (jqXHR.status == 400 && tryCount <= retries) {
+            tryCount: 0,
+            retries: 3,
+            error: function(jqXHR, exception) {
+                if(jqXHR.status == 400 && tryCount <= retries)
+                {
                     tryCount++;
-                    setTimeout(() => { $.ajax(this) }, 1000);
+                    setTimeout(() => {$.ajax(this)}, 1000);
                 }
-
             }
         }).then(function (response2) {
             // create div for second call
@@ -224,13 +226,13 @@ function getNasa(date) {
             var imgDesc2 = response2.explanation
             var imgTitle2 = response2.title
             var nasaImg2 = response2.url
-            var nasaDiv2 = $('<div>').attr('id', 'nasa2')
-            var divDate2 = $('<h3>').text(nasaDate2)
-            var divTitle2 = $('<h2>').text(imgTitle2)
-            var divImg2 = $('<img>').attr('src', nasaImg2).css({ 'width': '300px', 'height': 'auto' })
-            var description2 = $('<p>').text(imgDesc2)
-            $('#nasa').append(nasaDiv2)
-            nasaDiv2.append(divTitle2, divDate2, divImg2, description2)
+            // var nasaDiv2 = $('<div>').attr('id', 'nasa2')
+            // var divDate2 = $('<h3>').text(nasaDate2)
+            // var divTitle2 = $('<h2>').text(imgTitle2)
+            // var divImg2 = $('<img>').attr('src', nasaImg2).css({ 'width': '300px', 'height': 'auto' })
+            // var description2 = $('<p>').text(imgDesc2)
+            // $('#nasa').append(nasaDiv2)
+            // nasaDiv2.append(divTitle2, divDate2, divImg2, description2)
             var queryURL3 = `https://api.nasa.gov/planetary/apod?date=${year[2]}-${date}&api_key=${apiKey}`;
             $.ajax({
                 url: queryURL3,
@@ -249,13 +251,13 @@ function getNasa(date) {
                 var imgDesc3 = response3.explanation
                 var imgTitle3 = response3.title
                 var nasaImg3 = response3.url
-                var nasaDiv3 = $('<div>').attr('id', 'nasa3')
-                var divDate3 = $('<h3>').text(nasaDate3)
-                var divTitle3 = $('<h2>').text(imgTitle3)
-                var divImg3 = $('<img>').attr('src', nasaImg3).css({ 'width': '300px', 'height': 'auto' })
-                var description3 = $('<p>').text(imgDesc3)
-                $('#nasa').append(nasaDiv3)
-                nasaDiv3.append(divTitle3, divDate3, divImg3, description3)
+                // var nasaDiv3 = $('<div>').attr('id', 'nasa3')
+                // var divDate3 = $('<h3>').text(nasaDate3)
+                // var divTitle3 = $('<h2>').text(imgTitle3)
+                // var divImg3 = $('<img>').attr('src', nasaImg3).css({ 'width': '300px', 'height': 'auto' })
+                // var description3 = $('<p>').text(imgDesc3)
+                // $('#nasa').append(nasaDiv3)
+                // nasaDiv3.append(divTitle3, divDate3, divImg3, description3)
                 var queryURL4 = `https://api.nasa.gov/planetary/apod?date=${year[3]}-${date}&api_key=${apiKey}`;
                 $.ajax({
                     url: queryURL4,
@@ -274,13 +276,13 @@ function getNasa(date) {
                     var imgDesc4 = response4.explanation
                     var imgTitle4 = response4.title
                     var nasaImg4 = response4.url
-                    var nasaDiv4 = $('<div>').attr('id', 'nasa4')
-                    var divDate4 = $('<h3>').text(nasaDate4)
-                    var divTitle4 = $('<h2>').text(imgTitle4)
-                    var divImg4 = $('<img>').attr('src', nasaImg4).css({ 'width': '300px', 'height': 'auto' })
-                    var description4 = $('<p>').text(imgDesc4)
-                    $('#nasa').append(nasaDiv4)
-                    nasaDiv4.append(divTitle4, divDate4, divImg4, description4)
+                    // var nasaDiv4 = $('<div>').attr('id', 'nasa4')
+                    // var divDate4 = $('<h3>').text(nasaDate4)
+                    // var divTitle4 = $('<h2>').text(imgTitle4)
+                    // var divImg4 = $('<img>').attr('src', nasaImg4).css({ 'width': '300px', 'height': 'auto' })
+                    // var description4 = $('<p>').text(imgDesc4)
+                    // $('#nasa').append(nasaDiv4)
+                    // nasaDiv4.append(divTitle4, divDate4, divImg4, description4)
                    
                     nasaDateArr = [nasaDate, nasaDate2, nasaDate3, nasaDate4, nasaDate];
                     imgDescArr = [imgDesc, imgDesc2, imgDesc3, imgDesc4, imgDesc];
@@ -290,7 +292,12 @@ function getNasa(date) {
                         $sliderTitle[i].textContent = imgTitleArr[i];
                         $sliderDate[i].textContent = nasaDateArr[i];
                         $sliderDesc[i].textContent = imgDescArr[i];
-                        $sliderPic[i].innerHTML = `<img src="${nasaImgArr[i]}">`;
+                        if(nasaImgArr[i].includes("youtube")) {
+                            $sliderPic[i].innerHTML = `<iframe src="${nasaImgArr[i]}">`;
+                        }
+                        else {
+                            $sliderPic[i].innerHTML = `<img src="${nasaImgArr[i]}">`;
+                        }          
                     }
                 })
             })
