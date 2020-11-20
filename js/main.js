@@ -212,7 +212,11 @@ function getNasa(date) {
             tryCount: 0,
             retries: 3,
             error: function(jqXHR, exception) {
-                alert("NASA API error: " + jqXHR.status + exception);
+                if(jqXHR.status == 400 && tryCount <= retries)
+                {
+                    tryCount++;
+                    setTimeout(() => {$.ajax(this)}, 1000);
+                }
             }
         }).then(function (response2) {
             // create div for second call
@@ -288,7 +292,12 @@ function getNasa(date) {
                         $sliderTitle[i].textContent = imgTitleArr[i];
                         $sliderDate[i].textContent = nasaDateArr[i];
                         $sliderDesc[i].textContent = imgDescArr[i];
-                        $sliderPic[i].innerHTML = `<img src="${nasaImgArr[i]}">`;
+                        if(nasaImgArr[i].includes("youtube")) {
+                            $sliderPic[i].innerHTML = `<iframe src="${nasaImgArr[i]}">`;
+                        }
+                        else {
+                            $sliderPic[i].innerHTML = `<img src="${nasaImgArr[i]}">`;
+                        }          
                     }
                 })
             })
