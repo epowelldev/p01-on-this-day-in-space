@@ -76,7 +76,7 @@ function publishLaunch(launch) {
     var rocket = launch.rocket.name;
     var rocketImg = launch.rocket.imageURL;
 
-    var launchDiv = $('<div>').attr('id', 'sub-launch');
+    var launchDiv = $('<div>').attr({'id': 'sub-launch', 'class': 'is-flex is-flex-direction-column is-justify-content-center'});
     var divTitle = $('<h1>').text("Launch activity closest to this date");
     var divName = $('<h2>').text(name);
     var divDate = $('<h3>').text(date);
@@ -89,8 +89,13 @@ function publishLaunch(launch) {
     launchDiv.append(divTitle, divName, divDate, divLoc, missionDiv, divRocket);
 
     // Launch Library sometimes returns a placeholder image
+<<<<<<< HEAD
     if (rocketImg !== placeHolder) {
         var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
+=======
+    if(rocketImg !== placeHolder) {
+        var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '400px', 'height': 'auto' });
+>>>>>>> b1799126cbf7ece9b93b5a54c2831d6cc7c7338e
         launchDiv.append(divImg);
     }
 
@@ -99,6 +104,7 @@ function publishLaunch(launch) {
         var vidURL = launch.vidURLs[0].replace("watch?v=", "embed/");
         var videoDiv = $('<iframe>').attr('src', vidURL);
         videoDiv.attr('id', 'video');
+        videoDiv.css({ 'width': '400px', 'height': 'auto' });
         launchDiv.append(videoDiv);
     }
 
