@@ -77,7 +77,7 @@ function publishLaunch(launch) {
     var rocket = launch.rocket.name;
     var rocketImg = launch.rocket.imageURL;
 
-    var launchDiv = $('<div>').attr('id', 'launch');
+    var launchDiv = $('<div>').attr('id', 'sub-launch');
     var divTitle = $('<h1>').text("Launch activity closest to this date");
     var divName = $('<h2>').text(name);
     var divDate = $('<h3>').text(date);
