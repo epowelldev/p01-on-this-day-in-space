@@ -137,7 +137,9 @@ $('#searchBtn').click(function (event) {
     console.log(targetDate[0] + '-' + targetDate[1])
     randomYear(targetDate[0] + '-' + targetDate[1])
     getNasa(targetDate[0] + '-' + targetDate[1])
-    launchLibrary(year, targetDate[0]);
+    if(targetDate[0].length > 0) {
+        launchLibrary(year, targetDate[0]);
+    }
     dateInputs()
     dateList()
     mainContentBlock.classList.remove("hidden-content");
