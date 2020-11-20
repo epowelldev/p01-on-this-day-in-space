@@ -35,6 +35,10 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
+.hidden-content {
+  display: none;
+}
+
 /* breakpoint on large screens, enlarge slider */
 @media screen and (min-width: 550px) {
   :root {
