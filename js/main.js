@@ -77,7 +77,7 @@ function publishLaunch(launch) {
     var rocket = launch.rocket.name;
     var rocketImg = launch.rocket.imageURL;
 
-    var launchDiv = $('<div>').attr('id', 'sub-launch');
+    var launchDiv = $('<div>').attr({'id': 'sub-launch', 'class': 'is-flex is-flex-direction-column is-justify-content-center'});
     var divTitle = $('<h1>').text("Launch activity closest to this date");
     var divName = $('<h2>').text(name);
     var divDate = $('<h3>').text(date);
@@ -91,7 +91,7 @@ function publishLaunch(launch) {
 
     // Launch Library sometimes returns a placeholder image
     if(rocketImg !== placeHolder) {
-        var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '300px', 'height': 'auto' });
+        var divImg = $('<img>').attr('src', rocketImg).css({ 'width': '400px', 'height': 'auto' });
         launchDiv.append(divImg);
     }
 
@@ -100,6 +100,7 @@ function publishLaunch(launch) {
         var vidURL = launch.vidURLs[0].replace("watch?v=", "embed/");
         var videoDiv = $('<iframe>').attr('src', vidURL);
         videoDiv.attr('id', 'video');
+        videoDiv.css({ 'width': '400px', 'height': 'auto' });
         launchDiv.append(videoDiv);
     }
 

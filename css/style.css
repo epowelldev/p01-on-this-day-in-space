@@ -83,3 +83,7 @@ html {
 #main-content-area {
   background: rgb(0, 0, 0, .75) !important;
 }
+
+#sub-launch > img, iframe {
+  margin: auto;
+}
