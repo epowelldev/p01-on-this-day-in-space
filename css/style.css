@@ -7,25 +7,21 @@
   back to the first slide behind the sceens.
   used with calc() */
   --slides-plus-one: 5;
-  --slider-height: 400px;
 }
 #custom-slider {
   width: var(--slider-width);
-  /* height: var(--slider-height); */
   margin: auto;
   overflow: hidden;
 }
 .slider-list {
   display: block;
   width: calc( var(--slider-width) * var(--slides-plus-one) );
-  /* height: var(--slider-height); */
   margin: 0;
   padding: 0;
 }
 .slide-card {
   float: left;
   width: var(--slider-width);
-  /* height: var(--slider-height); */
   display: flex;
   flex-direction: column;
 }
@@ -34,28 +30,30 @@
   flex-direction: column;
   justify-content: space-between;
 }
-/* .picture-row {} */
-.discription-row {
-  font-family: 'Courier New', Courier, monospace;
+
+.hidden-content {
+  display: none !important; 
 }
-/* breakpoint on large screens, enlarge slider */
-@media screen and (min-width: 550px) {
-  :root {
+
+/* breakpoint on medium screens (width 1500px) for slider */
+@media screen and (min-width: 1500px) {
+    :root {
       --slider-width: 750px;
-      --slider-height: 500px;
   }
   #custom-slider {
       width: var(--slider-width);
-      /* height: var(--slider-height); */
   }
   .slider-list {
       width: calc( var(--slider-width) * var(--slides-plus-one) );
-      /* height: var(--slider-height); */
   }
   .slide-card {
       width: var(--slider-width);
-      height: var(--slider-height);
   }
+}
+
+/* breakpoint on large screens, enlarge slider */
+@media screen and (min-width: 550px) {
+
   .title-row {
     flex-direction: row;
   }
@@ -63,15 +61,12 @@
 /*end slider css*/
 html {
   background-color: black;
-  /* background-image: url("https://media.giphy.com/media/1ZjLRSrAyikUzypJfa/giphy.gif"); */
   background-image: url("../assets/minus25bright-space.gif");
   background-size: 100%;
   background-attachment: fixed;
-  /* added some stuff below */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* added some stuff above */
   height: 100%;
   width: 100%;
   padding: 0;
@@ -80,8 +75,11 @@ html {
 .hero-body {
   font-family: "goldman", Georgia, "Times New Roman", Times, serif;
   background-color: black;
-  /* color: white !important; */
 }
 .input {
   width: 400px;
+}
+
+#main-content-area {
+  background: rgb(0, 0, 0, .75) !important;
 }
