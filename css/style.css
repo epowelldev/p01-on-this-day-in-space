@@ -30,9 +30,6 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.discription-row {
-  /* TBD */
-}
 
 .hidden-content {
   display: none !important; 
