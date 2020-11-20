@@ -1,6 +1,8 @@
 var date = $('#searchDate').val()
 var dateArray = JSON.parse(localStorage.getItem('dateArray')) || []
 
+var mainContentBlock = document.querySelector("#main-content-area");
+
 // Function containing Launch Library API call
 function launchLibrary(year, date) {
     //console.log(date);
@@ -129,6 +131,7 @@ $('#searchBtn').click(function (event) {
     launchLibrary(year, targetDate[0]);
     dateInputs()
     dateList()
+    mainContentBlock.classList.remove("hidden-content");
 })
 
 // create list for previously searched days
