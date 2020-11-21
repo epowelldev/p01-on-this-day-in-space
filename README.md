@@ -22,7 +22,7 @@ Concepts:
 
 
 
-Teach and Framework Used:
+Tech and Framework Used:
 
      Bulma was used for our CSS Framework. 
      We also used JavaScript, jQuery, and 2 APIs (Nasa and Launch Library)
